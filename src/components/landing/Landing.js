@@ -8,10 +8,12 @@ export default class Landing extends React.Component{
         super(props);
         this.state = {
             email: '',
-            pw: ''
+            pw: '',
+            displayRegisterForm: true
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleDisplayForm = this.handleDisplayForm.bind(this);
     }
 
     handleInputChange(e) {
@@ -24,8 +26,16 @@ export default class Landing extends React.Component{
             email: this.state.email,
             pw : this.state.pw
         }
-
         
+        alert('fuck');
+    }
+
+    handleDisplayForm(){
+        if(this.state.displayRegisterForm) {
+            this.setState({displayRegisterForm: false});
+        } else {
+            this.setState({displayRegisterForm: true});
+        }
     }
 
     render(){
@@ -38,7 +48,7 @@ export default class Landing extends React.Component{
                     <div className='main-center'>
                         <h1>Wurkflow</h1>
                     </div>
-                    <form className='landing-form'>
+                    <form onSubmit={(e)=>this.handleFormSubmit(e)} className='landing-form'>
                         <input required={true} type='email' onChange={(e)=>this.handleInputChange(e)} 
                             name='email' placeholder='Email' value={this.state.email}/>
                         <input required={true} type='password' onChange={(e)=>this.handleInputChange(e)} 
@@ -46,6 +56,9 @@ export default class Landing extends React.Component{
                         <button>Login</button>
                     </form>
                 </main>
+                {
+                    this.state.displayRegisterForm ? <RegisterForm displayRegisterForm={this.handleDisplayForm}/> : null
+                }
                 <footer>
                     Developed by Reagan Foronda [Helius Labs]
                 </footer>
