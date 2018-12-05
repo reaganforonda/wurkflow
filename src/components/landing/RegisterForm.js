@@ -12,27 +12,29 @@ export default class RegisterForm extends React.Component{
             pw: '',
             confirmPW: ''
         }
-
-
     }
 
     render(){
         return (
             <form className='register-form'>
                 <div className='register-row'>
-                    <input name='firstName' placeholder='First Name'/>
+                    <input required={true} name='firstName' placeholder='First Name'/>
                 </div>
                 <div className='register-row'>
-                    <input name='lastName' placeholder='Last Name'/>
+                    <input required={true} name='lastName' placeholder='Last Name'/>
                 </div>
                 <div className='register-row'>
-                    <input name='email' placeholder='Email'/>
+                    <input required={true} name='email' placeholder='Email'/>
                 </div>
                 <div className='register-row'>
-                    <input name='pw' placeholder='Password'/>
+                    <input required={true} name='pw' placeholder='Password'/>
                 </div>
                 <div className='register-row'>
-                    <input name='confirmPW' placeholder='Confirm Password'/>
+                    <input required={true} name='confirmPW' placeholder='Confirm Password'/>
+                </div>
+                <div className='register-row'>
+                    <button onClick={this.props.displayRegisterForm}>Cancel</button>
+                    <button>Register</button>
                 </div>
             </form>
         )
