@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import RegisterForm from './RegisterForm';
 
 export default class Landing extends React.Component{
 
@@ -45,6 +46,9 @@ export default class Landing extends React.Component{
                         <button>Login</button>
                     </form>
                 </main>
+                <footer>
+                    Developed by Reagan Foronda [Helius Labs]
+                </footer>
             </div>
         )
     }
