@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import RegisterForm from './RegisterForm';
+import LandingHeader from './LandingHeader';
 
 export default class Landing extends React.Component{
 
@@ -9,7 +10,7 @@ export default class Landing extends React.Component{
         this.state = {
             email: '',
             pw: '',
-            displayRegisterForm: true
+            displayRegisterForm: false
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -27,7 +28,6 @@ export default class Landing extends React.Component{
             pw : this.state.pw
         }
         
-        alert('fuck');
     }
 
     handleDisplayForm(){
@@ -41,26 +41,32 @@ export default class Landing extends React.Component{
     render(){
         return (
             <div className='landing-container'>
-                <header className='landing-header'>
-                    
-                </header>
+                <div className='landing-header-container'>
+                    <LandingHeader handleDisplayForm={this.handleDisplayForm}/>
+                </div>
                 <main className='landing-main'>
                     <div className='main-center'>
                         <h1>Wurkflow</h1>
                     </div>
                     <form onSubmit={(e)=>this.handleFormSubmit(e)} className='landing-form'>
-                        <input required={true} type='email' onChange={(e)=>this.handleInputChange(e)} 
-                            name='email' placeholder='Email' value={this.state.email}/>
-                        <input required={true} type='password' onChange={(e)=>this.handleInputChange(e)} 
-                            name='pw' placeholder='Password' value={this.state.pw}/>
-                        <button>Login</button>
+                        <div className='landing-form-row'>
+                            <input required={true} type='email' onChange={(e)=>this.handleInputChange(e)} 
+                                name='email' placeholder='Email' value={this.state.email}/>
+                        </div>
+                        <div className='landing-form-row'>
+                            <input required={true} type='password' onChange={(e)=>this.handleInputChange(e)} 
+                                name='pw' placeholder='Password' value={this.state.pw}/>
+                        </div>
+                        <div className='landing-form-row'>
+                            <button>Login</button>
+                        </div>
                     </form>
                 </main>
                 {
                     this.state.displayRegisterForm ? <RegisterForm displayRegisterForm={this.handleDisplayForm}/> : null
                 }
                 <footer>
-                    Developed by Reagan Foronda [Helius Labs]
+                    Developed by Reagan Foronda
                 </footer>
             </div>
         )
