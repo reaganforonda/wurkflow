@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 
 export default class RegisterForm extends React.Component{
     constructor(props) {
@@ -12,25 +12,50 @@ export default class RegisterForm extends React.Component{
             pw: '',
             confirmPW: ''
         }
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    handleInputChange(e) {
+        this.setState({[e.target.name] : e.target.value});
+    }
+
+    handleFormSubmit(e) {
+        e.preventDefault();
+
+        let user = Object.assign({}, this.state)
+
+        axios.post('/api/auth/register', user).then((result) => {
+            console.log("Hello World");
+            console.log(result);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     render(){
         return (
-            <form className='register-form'>
+            <form onSubmit={(e)=> this.handleFormSubmit(e)} className='register-form'>
                 <div className='register-row'>
-                    <input required={true} name='firstName' placeholder='First Name'/>
+                    <input type='text' required={true} name='firstName' placeholder='First Name' value={this.state.firstName} 
+                        onChange={(e)=>this.handleInputChange(e)}/>
                 </div>
                 <div className='register-row'>
-                    <input required={true} name='lastName' placeholder='Last Name'/>
+                    <input type='text' required={true} name='lastName' placeholder='Last Name' value={this.state.lastName} 
+                        onChange={(e)=>this.handleInputChange(e)}/>
                 </div>
                 <div className='register-row'>
-                    <input required={true} name='email' placeholder='Email'/>
+                    <input type='email' required={true} name='email' placeholder='Email' value={this.state.email} 
+                        onChange={(e)=>this.handleInputChange(e)}/>
                 </div>
                 <div className='register-row'>
-                    <input maxLength={25} minLength={8} required={true} name='pw' placeholder='Password'/>
+                    <input type='password' maxLength={25} minLength={8} required={true} name='pw' placeholder='Password' value={this.state.pw} 
+                        onChange={(e)=>this.handleInputChange(e)}/>
                 </div>
                 <div className='register-row'>
-                    <input required={true} name='confirmPW' placeholder='Confirm Password'/>
+                    <input type='password' required={true} name='confirmPW' placeholder='Confirm Password' value={this.state.confirmPW} 
+                        onChange={(e)=> this.handleInputChange(e)}/>
                 </div>
                 <div className='register-row'>
                     <button onClick={this.props.displayRegisterForm}>Cancel</button>
