@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
-export default class RegisterForm extends React.Component{
+export class RegisterForm extends React.Component{
     constructor(props) {
         super(props);
 
@@ -27,9 +28,9 @@ export default class RegisterForm extends React.Component{
         let user = Object.assign({}, this.state)
 
         axios.post('/api/auth/register', user).then((result) => {
-            console.log("Hello World");
-            console.log(result);
+            this.props.history.push('/dashboard');
         }).catch((err) => {
+            // TODO:
             console.log(err);
         })
     }
@@ -65,3 +66,5 @@ export default class RegisterForm extends React.Component{
         )
     }
 }
+
+export default withRouter(RegisterForm);
