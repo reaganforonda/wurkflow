@@ -27,7 +27,7 @@ export default class RegisterForm extends React.Component{
                     <input required={true} name='email' placeholder='Email'/>
                 </div>
                 <div className='register-row'>
-                    <input required={true} name='pw' placeholder='Password'/>
+                    <input maxLength={25} minLength={8} required={true} name='pw' placeholder='Password'/>
                 </div>
                 <div className='register-row'>
                     <input required={true} name='confirmPW' placeholder='Confirm Password'/>
