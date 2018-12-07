@@ -1,4 +1,5 @@
 import React from 'react';
+import DashboardMenu from '../menus/DashboardMenu';
 
 export default class Dashboard extends React.Component{
     constructor(props) {
@@ -8,7 +9,10 @@ export default class Dashboard extends React.Component{
     render(){
         return (
             <div className='dashboard-container'>
-                Hello World
+                <DashboardMenu/>
+                <div>
+                    
+                </div>
             </div>
         )
     }
