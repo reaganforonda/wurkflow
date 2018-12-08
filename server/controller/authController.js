@@ -6,6 +6,24 @@ module.exports = {
     login: (req, res)=> {
         const db = req.app.get('db');
         const {email, pw} = req.body;
+        const emailLowerCase = email.toLowerCase();
+
+        db.CHECK_EMAIL([emailLowerCase]).then((user) => {
+            if(user.length !==0) {
+                const validPW = bcrypt.compareSync(pw, user[0].pw)
+                
+                if(validPW) {
+                    res.status(200)
+                } else {
+                    res.sendStatus(401);
+                }
+            } else {
+                res.status(401).send("Please Create An Account");
+            }
+        }).catch((err) => {
+            console.log(`Server error while attempting to login: ${err}`)
+            res.sendStatus(500);
+        })
     },
 
     register: async (req, res)=> {
