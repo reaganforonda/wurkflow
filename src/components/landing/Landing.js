@@ -25,17 +25,13 @@ export class Landing extends React.Component{
     handleFormSubmit(e) {
         e.preventDefault();
         let user = Object.assign({}, this.state);
-        console.log(user);
 
         axios.post('/api/auth/login', user).then((result)=> {
-            // TODO:
-            console.log(result);
             this.props.history.push('/dashboard');
         }).catch((err) => {
             // TODO:
             console.log(err);
         })
-        
     }
 
     handleDisplayForm(){
@@ -65,7 +61,7 @@ export class Landing extends React.Component{
                                     name='pw' placeholder='Password' value={this.state.pw}/>
                             </div>
                             <div className='landing-form-row'>
-                                <button>Login</button>
+                                <button onClick={(e)=> this.handleFormSubmit(e)}>Login</button>
                             </div>
                         </form>
                     </div>
