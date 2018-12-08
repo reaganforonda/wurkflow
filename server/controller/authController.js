@@ -11,9 +11,8 @@ module.exports = {
         db.CHECK_EMAIL([emailLowerCase]).then((user) => {
             if(user.length !==0) {
                 const validPW = bcrypt.compareSync(pw, user[0].pw)
-                
                 if(validPW) {
-                    res.status(200)
+                    res.sendStatus(200)
                 } else {
                     res.sendStatus(401);
                 }
