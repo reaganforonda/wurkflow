@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import RegisterForm from './RegisterForm';
 import LandingHeader from './LandingHeader';
+import {withRouter} from 'react-router-dom';
 
-export default class Landing extends React.Component{
+export class Landing extends React.Component{
 
     constructor(props) {
         super(props);
@@ -23,10 +24,17 @@ export default class Landing extends React.Component{
 
     handleFormSubmit(e) {
         e.preventDefault();
-        let user = {
-            email: this.state.email,
-            pw : this.state.pw
-        }
+        let user = Object.assign({}, this.state);
+        console.log(user);
+
+        axios.post('/api/auth/login', user).then((result)=> {
+            // TODO:
+            console.log(result);
+            this.props.history.push('/dashboard');
+        }).catch((err) => {
+            // TODO:
+            console.log(err);
+        })
         
     }
 
@@ -47,20 +55,20 @@ export default class Landing extends React.Component{
                 <main className='landing-main'>
                     <div className='main-center'>
                         <h1>Wurkflow</h1>
+                        <form onSubmit={(e)=>this.handleFormSubmit(e)} className='landing-form'>
+                            <div className='landing-form-row'>
+                                <input required={true} type='email' onChange={(e)=>this.handleInputChange(e)} 
+                                    name='email' placeholder='Email' value={this.state.email}/>
+                            </div>
+                            <div className='landing-form-row'>
+                                <input required={true} type='password' onChange={(e)=>this.handleInputChange(e)} 
+                                    name='pw' placeholder='Password' value={this.state.pw}/>
+                            </div>
+                            <div className='landing-form-row'>
+                                <button>Login</button>
+                            </div>
+                        </form>
                     </div>
-                    <form onSubmit={(e)=>this.handleFormSubmit(e)} className='landing-form'>
-                        <div className='landing-form-row'>
-                            <input required={true} type='email' onChange={(e)=>this.handleInputChange(e)} 
-                                name='email' placeholder='Email' value={this.state.email}/>
-                        </div>
-                        <div className='landing-form-row'>
-                            <input required={true} type='password' onChange={(e)=>this.handleInputChange(e)} 
-                                name='pw' placeholder='Password' value={this.state.pw}/>
-                        </div>
-                        <div className='landing-form-row'>
-                            <button>Login</button>
-                        </div>
-                    </form>
                 </main>
                 {
                     this.state.displayRegisterForm ? <RegisterForm displayRegisterForm={this.handleDisplayForm}/> : null
@@ -72,3 +80,5 @@ export default class Landing extends React.Component{
         )
     }
 }
+
+export default withRouter(Landing);
